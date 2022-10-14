@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SnakeHead : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Food currentFood;
     void Start()
     {
         
@@ -13,6 +13,11 @@ public class SnakeHead : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (currentFood == null) return;
+
+        currentFood.enabled = false;
     }
+
+   
 }
+
