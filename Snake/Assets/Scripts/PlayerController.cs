@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
 
     public int tailCurrent = 0;
     public GameObject tailSegment;
+    public float speedTail = .2f;
+    private float countTime;
 
 
 
@@ -39,7 +41,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        countTime += Time.deltaTime;
+        if (countTime >= speedTail)
+        {
+            moveTail();
+            countTime = 0;
+        }
 
     }
 

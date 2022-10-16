@@ -30,7 +30,7 @@ public class ControllMouse : MonoBehaviour
             else
                 transform.position = new Vector3((sizePanel / 2.0f - 0.5f) * Mathf.Sign(delta.x), transform.position.y, transform.position.z);
 
-            playerController.moveTail();
+            
         }
         _previousMousePosition = Input.mousePosition;
     }

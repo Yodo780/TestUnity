@@ -208,7 +208,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!64 &639307349
 MeshCollider:
@@ -653,7 +653,7 @@ GameObject:
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -752,6 +752,7 @@ MonoBehaviour:
   playerTextfield: {fileID: 2025106008}
   tailCurrent: 0
   tailSegment: {fileID: 59758930343887549, guid: 3c267880bcc362c478ecc57d11f2ac6c, type: 3}
+  speedTail: 0.2
 --- !u!114 &1399689081
 MonoBehaviour:
   m_ObjectHideFlags: 0
