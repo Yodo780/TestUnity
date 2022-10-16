@@ -41,12 +41,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        countTime += Time.deltaTime;
-        if (countTime >= speedTail)
-        {
-            moveTail();
-            countTime = 0;
-        }
+        //countTime += Time.deltaTime;
+        //if (countTime >= speedTail)
+        //{
+        //    moveTail();
+        //    countTime = 0;
+        //}
 
     }
 
@@ -55,13 +55,29 @@ public class PlayerController : MonoBehaviour
         playerScore += score;
         playerTextfield.text = playerScore.ToString();
 
-        GameObject newSegment = Instantiate(tailSegment, new Vector3(transform.position.x, 0, -(tailList.Count + 1)), Quaternion.identity);
+        float starX = tailList.Count == 0 ? transform.position.x : tailList[tailList.Count-1].tail.transform.position.x;
+        GameObject newSegment = Instantiate(tailSegment, new Vector3(starX, 0, -(tailList.Count + 1)), Quaternion.identity);
         tailList.Add(new Tail(newSegment));
 
+        SpringJoint joint = newSegment.AddComponent<SpringJoint>();
+
         if (tailList.Count == 1)
+        {
             tailList[0].oldX = transform.position.x;
+            joint.connectedBody = GetComponent<Rigidbody>();
+        }
         else
+        {
             tailList[tailList.Count - 1].oldX = tailList[tailList.Count - 2].newX;
+            joint.connectedBody = tailList[tailList.Count - 2].tail.GetComponent<Rigidbody>();
+        }
+        joint.enableCollision = true;
+        joint.spring = 10;
+
+        //if (tailList.Count == 1)
+        //    tailList[0].oldX = transform.position.x;
+        //else
+        //    tailList[tailList.Count - 1].oldX = tailList[tailList.Count - 2].newX;
     }
 
     public void moveTail()

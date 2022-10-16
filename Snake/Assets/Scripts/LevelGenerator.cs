@@ -20,7 +20,7 @@ public class LevelGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(new Vector3(0, 0, -0.01f));
+        transform.Translate(new Vector3(0, 0, -0.05f));
     }
 
     public void GenerateLevel(int line, int maxScore)
