@@ -9,10 +9,12 @@ public class PlayerCollisionController : MonoBehaviour
 
     private GameObject booster;
     private PlayerController playerController;
+    private PlayerTail playerTail;
 
     private void Start()
     {
         playerController = GetComponent<PlayerController>();
+        playerTail = GetComponent<PlayerTail>();
     }
     private void OnTriggerEnter(Collider collider)
     {
@@ -21,13 +23,25 @@ public class PlayerCollisionController : MonoBehaviour
             case "Booster":
                 booster = collider.gameObject.transform.parent.gameObject;
 
-                playerController.addTailSegment(booster.GetComponent<BoosterController>().score);
+                //playerController.addTailSegment(booster.GetComponent<BoosterController>().score);
+                playerTail.AddBodyPart(booster.GetComponent<BoosterController>().score);
 
                 Destroy(booster);
                 break;
+            case "Box":
+                print("Box collision");
+                playerController.playerMove = false;
+                break;
             default:
-                print("Unknown collision");
+                print("Unknown collision: " + collider.ToString());
                 break;
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        print("Triger exit");
+        playerController.playerMove = true;
+
     }
 }

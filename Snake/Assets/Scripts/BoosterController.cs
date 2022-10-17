@@ -9,8 +9,8 @@ public class BoosterController : MonoBehaviour
     public int score;
     public TextMeshProUGUI textField;
 
-    public float distance = .2f;
-    public float speef = 280;
+    //public float distance = .2f;
+    //public float speef = 280;
     
     private void Start()
     {
