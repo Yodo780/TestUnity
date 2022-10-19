@@ -8,6 +8,7 @@ TagManager:
   - Tail
   - Plane
   - Box
+  - LevelContainer
   layers:
   - Default
   - TransparentFX

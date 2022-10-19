@@ -7,13 +7,14 @@ using UnityEngine;
 public class PlayerCollisionController : MonoBehaviour
 {
 
-    private GameObject booster;
-    private PlayerController playerController;
+    //private BoosterController booster;
+    private GameObject box;
+    private PlayerController player;
     private PlayerTail playerTail;
 
     private void Start()
     {
-        playerController = GetComponent<PlayerController>();
+        player = GetComponent<PlayerController>();
         playerTail = GetComponent<PlayerTail>();
     }
     private void OnTriggerEnter(Collider collider)
@@ -21,27 +22,16 @@ public class PlayerCollisionController : MonoBehaviour
         switch (collider.tag)
         {
             case "Booster":
-                booster = collider.gameObject.transform.parent.gameObject;
-
-                //playerController.addTailSegment(booster.GetComponent<BoosterController>().score);
-                playerTail.AddBodyPart(booster.GetComponent<BoosterController>().score);
-
-                Destroy(booster);
+                player.ConsumeBooster(collider);
                 break;
+
             case "Box":
-                print("Box collision");
-                playerController.playerMove = false;
+                player.BoxHit(collider);
                 break;
+
             default:
                 print("Unknown collision: " + collider.ToString());
                 break;
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        print("Triger exit");
-        playerController.playerMove = true;
-
     }
 }

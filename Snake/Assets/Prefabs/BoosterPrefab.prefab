@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4977356276356329209}
-  - component: {fileID: 3962300843640534079}
+  - component: {fileID: 4260687210150275756}
+  - component: {fileID: 4651991422750601825}
   m_Layer: 0
   m_Name: BoosterPrefab
   m_TagString: Booster
@@ -33,7 +34,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3962300843640534079
+--- !u!135 &4260687210150275756
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 59758930343887549}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4651991422750601825
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,13 +56,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 59758930343887549}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cf7a6072c8e1e24f94e4cda748bbf21, type: 3}
+  m_Script: {fileID: 11500000, guid: 364acf891f29c7e4398590268ab7d405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
+  maxScore: 5
   textField: {fileID: 3613793056996982326}
-  distance: 0.2
-  speef: 280
 --- !u!1 &2792837811971986110
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,7 +72,6 @@ GameObject:
   - component: {fileID: 4353050078011781865}
   - component: {fileID: 3651494450266540370}
   - component: {fileID: 5940530194422187937}
-  - component: {fileID: 561024797484648614}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Booster
@@ -134,19 +145,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &561024797484648614
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2792837811971986110}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &5923503592740220311
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -7,31 +8,35 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerTail : MonoBehaviour
 {
-    private int playerScore = 0;
-    private TextMeshProUGUI playerTextfield;
+    [SerializeField]
+    private ScoreController playerScoreController;
+    
 
     public List<Transform> bodyParts = new List<Transform>();
     public int tailSize = 10;
+    public int tailMaxSize = 10;
     public float minDistance = 0.25f;
 
     public float speed;
-    public float rotationSpeed = 59;
+    //public float rotationSpeed = 59;
 
     public GameObject bodyPrefab;
 
-    private float dis;
+    public float dis;
     private Transform curBodyPart;
     private Transform prevBodyPart;
 
     private const float maxTime = 0.5f;
 
+    
+
+
     void Start()
     {
-        playerTextfield = GetComponentInChildren<TextMeshProUGUI>();
-        //scorePlayer = 0;
-        playerTextfield.text = playerScore.ToString();
+        playerScoreController = GetComponentInChildren<ScoreController>();
+    
 
-        for(int i = 0; i < 10; i++)
+        for (int i = 0; i < tailSize; i++)
         {
             AddBodyPart(1);
         }
@@ -56,6 +61,8 @@ public class PlayerTail : MonoBehaviour
             prevBodyPart = bodyParts[i - 1];
 
             dis = Vector3.Distance(prevBodyPart.position, curBodyPart.position);
+            if (dis <= minDistance) continue;
+
             Vector3 newpos = prevBodyPart.position;
 
             newpos.y = transform.position.y;
@@ -64,8 +71,9 @@ public class PlayerTail : MonoBehaviour
             if (T > maxTime)
                 T = maxTime;
 
+
             curBodyPart.position = Vector3.Slerp(curBodyPart.position, newpos, T);
-            curBodyPart.rotation = Quaternion.Slerp(curBodyPart.rotation, prevBodyPart.rotation, T);
+            //curBodyPart.rotation = Quaternion.Slerp(curBodyPart.rotation, prevBodyPart.rotation, T);
         }
 
     }
@@ -73,12 +81,36 @@ public class PlayerTail : MonoBehaviour
     public void AddBodyPart(int score)
     {
         // суммируем очки со съеденного шарика
-        playerScore += score;
-        playerTextfield.text = playerScore.ToString();
+        playerScoreController.score += score;
+        
 
-        if (bodyParts.Count >= tailSize) return;
+        if (bodyParts.Count >= tailMaxSize) return;
+        for (int i = 0; i < score; i++)
+        {
+            Transform newPart = Instantiate(bodyPrefab, bodyParts[bodyParts.Count - 1].position, bodyParts[bodyParts.Count - 1].rotation).transform;
+            bodyParts.Add(newPart);
+        }
+    }
 
-        Transform newPart = Instantiate(bodyPrefab, bodyParts[bodyParts.Count - 1].position, bodyParts[bodyParts.Count - 1].rotation).transform;
-        bodyParts.Add(newPart);
+    internal void DelBodyPart()
+    {
+        if (playerScoreController.score <= 1)
+        {
+           
+            transform.GetComponent<PlayerController>().Currentstate = PlayerController.State.Loss;
+            return; // первая (1) голова - Loose (конец игры).
+        }
+
+        // суммируем очки со съеденного шарика
+        playerScoreController.score -= 1;
+        
+
+
+        if (playerScoreController.score < tailMaxSize)
+        {
+            Destroy(bodyParts[bodyParts.Count - 1].transform.gameObject);
+            bodyParts.RemoveAt(bodyParts.Count - 1);
+
+        }
     }
 }
